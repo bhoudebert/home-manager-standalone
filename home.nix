@@ -18,22 +18,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    
+    # editors
+    vim
+    # emacs -- commented as potentially installed from sources 
 
     # fonts
     powerline-fonts
@@ -50,6 +38,7 @@
     ripgrep
     ncdu
 
+    # Better ls and in Rust!
     eza
   ];
 
@@ -91,6 +80,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  # Enable git with all ready to use aliases
   programs.git = {
     enable = true;
     aliases = {
@@ -130,6 +120,7 @@
     };
   };
 
+  # Setup zsh with plugins.
   # For WSL only: https://learn.microsoft.com/en-us/windows/terminal/tutorials/custom-prompt-setup#set-cascadia-code-pl-as-fontface-in-settings
   # Install Cascadia Code PL https://github.com/microsoft/cascadia-code
   programs.zsh = {
@@ -169,6 +160,7 @@
     shellAliases = {
       ll = "eza -al";
     };
+    # The extra part loading nix.sh is only necessary on non NixOS env, might be adapt for your own user
     initExtra = ''
       . /home/bhoudebert/.nix-profile/etc/profile.d/nix.sh
       eval "$(direnv hook zsh)"
